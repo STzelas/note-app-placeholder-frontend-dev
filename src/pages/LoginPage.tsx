@@ -1,9 +1,10 @@
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
+import {useNavigate} from "react-router";
 
 export default function LoginPage() {
-
+  const navigate = useNavigate();
 
   return (
     <>
@@ -35,9 +36,14 @@ export default function LoginPage() {
           <Button className="" type="submit">
             Login
           </Button>
-          <Button variant={"outline"} className="">
+          <Button
+            variant={"outline"}
+            className=""
+            onClick={() => navigate("/register")}
+          >
             Create an account
           </Button>
+          <button onClick={() => {navigate("/")}} className={"text-xs text-gray-400 ms-1 hover:text-black"}>or go Back</button>
         </div>
 
       </form>
