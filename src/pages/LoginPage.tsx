@@ -35,8 +35,8 @@ export default function LoginPage() {
           <Button className="" type="submit">
             Login
           </Button>
-          <Button className="">
-            Create account
+          <Button variant={"outline"} className="">
+            Create an account
           </Button>
         </div>
 
