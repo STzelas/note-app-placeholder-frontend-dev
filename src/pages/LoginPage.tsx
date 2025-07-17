@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <>
       <form
-        className="max-w-sm mx-auto p-8 space-y-4 mt-20 rounded bg-white shadow-xl"
+        className="max-w-sm mx-auto p-8 space-y-4 mt-20 rounded-xl bg-white shadow-xl"
       >
         <h3 className="text-xl font-semibold text-center text-gray-600">Welcome!</h3>
         <p className="mt-1 text-center text-gray-500 ">Login or create account</p>
