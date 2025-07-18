@@ -1,8 +1,8 @@
-const NotePage = () => {
+const NotesPage = () => {
   return (
     <>
     </>
   )
 }
 
-export default NotePage;
+export default NotesPage;
