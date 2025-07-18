@@ -11,7 +11,7 @@ const Header = () => {
         <img
           className="h-12"
           src=""
-          alt=""
+          alt="logo"
         />
         <button
           className="md:hidden text-white focus:outline-none"
