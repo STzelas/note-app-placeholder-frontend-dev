@@ -1,8 +1,15 @@
 import {Label} from "@/components/ui/label.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import { useNavigate } from "react-router";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const onClickBack = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    navigate("/");
+  }
   return (
     <>
       <form
@@ -53,10 +60,17 @@ const RegisterPage = () => {
         </div>
 
         <div className={"flex flex-col items-center justify-center space-y-2"}>
-          <Button className="" type="submit">
+          <Button
+            className="" type="submit"
+            // onClick={}
+          >
             Create an Account
           </Button>
-          <Button variant={"outline"} className="">
+          <Button
+            variant={"outline"}
+            className=""
+            onClick={onClickBack}
+          >
             Back
           </Button>
         </div>
