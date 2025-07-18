@@ -55,7 +55,7 @@ const RegisterPage = () => {
               autoFocus
               placeholder={"Confirm Password"}
             />
-            <a href="#" className={"text-xs text-gray-400 ms-1 hover:text-black"}>Already have an Account?</a>
+            <a onClick={() => {navigate("/login")}} className={"text-xs text-gray-400 ms-1 hover:text-black"}>Already have an Account?</a>
           </div>
         </div>
 
