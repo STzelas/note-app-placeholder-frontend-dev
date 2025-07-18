@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Menu, X } from "lucide-react";
+import {Github, House, ListTodo, LogIn, Menu, Notebook, X} from "lucide-react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-cf-dark-red fixed w-full z-50">
+    <header className="bg-cf-dark-red fixed w-4/5 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <img
           className="h-12"
@@ -26,14 +26,63 @@ const Header = () => {
         >
           <Link
             to="/"
-            className="block md:inline hover:underline hover:underline-offset-4 p-4 md:p-1"
+            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
-            ...
+            <House
+              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                " dark:hover:text-neutral-400"}
+            />
           </Link>
-        </nav>
-      </div>
-    </header>
-  );
+          <Link
+            to="#" // Notes Page
+            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+          >
+            <Notebook
+              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                " dark:hover:text-neutral-400"}
+            />
+          </Link>
+          <Link
+            to="#" // Notes Page
+            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+          >
+            <ListTodo
+              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                " dark:hover:text-neutral-400"}
+            />
+          </Link>
+          <a
+            href="https://github.com/STzelas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+          >
+            <Github
+              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                " dark:hover:text-neutral-400"}
+            />
+          </a>
+          <Link
+            to="/login" // Notes Page
+            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+          >
+            <LogIn
+              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                " dark:hover:text-neutral-400"}
+            />
+          </Link>
+
+
+      </nav>
+    </div>
+</header>
+)
+  ;
 };
 
 export default Header;
