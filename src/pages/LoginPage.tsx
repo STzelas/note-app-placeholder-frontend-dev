@@ -6,6 +6,11 @@ import {useNavigate} from "react-router";
 export default function LoginPage() {
   const navigate = useNavigate();
 
+  const onRegisterRedirect = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    navigate("/register");
+  }
+
   return (
     <>
       <form
@@ -39,11 +44,11 @@ export default function LoginPage() {
           <Button
             variant={"outline"}
             className=""
-            onClick={() => navigate("/register")}
+            onClick={onRegisterRedirect}
           >
             Create an account
           </Button>
-          <button onClick={() => {navigate("/")}} className={"text-xs text-gray-400 ms-1 hover:text-black"}>or go Back</button>
+          <button onClick={(e) => {e.preventDefault(); navigate("/")}} className={"text-xs text-gray-400 ms-1 hover:text-black"}>or go Back</button>
         </div>
 
       </form>
