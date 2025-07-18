@@ -14,7 +14,7 @@ const Footer = () => {
               © {new Date().getFullYear()}, Project made by me
             </p>
             <a
-              href="#"
+              href="https://github.com/STzelas"
               className={"p-2 text-black font-semibold text-sm"}
             >About me</a>
           </div>
