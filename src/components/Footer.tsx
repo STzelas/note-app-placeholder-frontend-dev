@@ -16,6 +16,8 @@ const Footer = () => {
             <a
               href="https://github.com/STzelas"
               className={"p-2 text-black font-semibold text-sm"}
+              target="_blank"
+              rel="noopener noreferrer"
             >About me</a>
           </div>
         </div>
