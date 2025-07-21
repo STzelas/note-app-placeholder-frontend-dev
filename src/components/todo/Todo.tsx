@@ -1,0 +1,99 @@
+import TodoForm from "@/components/todo/TodoForm.tsx";
+import {useEffect, useReducer, useRef} from "react";
+import TodoList from "./TodoList.tsx";
+import type {TodoProps, Action} from "@/types/TodoTypes.ts";
+import {Button} from "@/components/ui/button.tsx";
+
+const getInitialTodos = () => {
+  const stored = localStorage.getItem("todos")
+  return stored ? JSON.parse(stored) : [];
+}
+
+const todoReducer = (state: TodoProps[], action: Action): TodoProps[] => {
+  switch (action.type) {
+    case "ADD":
+      { const newTodo: TodoProps = {
+        id: Date.now(),
+        text: action.payload,
+        completed: false
+      }
+      return [...state, newTodo]; }
+    case "DELETE":
+      return state.filter(todo => todo.id !== action.payload);
+    case "EDIT":
+      return state.map(
+        todo => todo.id === action.payload.id ? {...todo, text: action.payload.newText} : todo
+      )
+    case "COMPLETE":
+      return state.map(
+        todo => todo.id === action.payload ?
+          {...todo, completed: !todo.completed } : todo
+      )
+    case "CLEAR_ALL":
+      return [];
+    default:
+      return state;
+  }
+}
+
+const Todo = () => {
+  const [todos, dispatch] = useReducer(todoReducer, getInitialTodos());  // εδώ βάζουμε optionally μια function που κανει κάτι που θέλουμε εμείς
+
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const editInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const totalTasks: number = todos.length
+  const completedTasks: number = todos.filter(todo => todo.completed === true).length
+  const activeTasks = totalTasks - completedTasks;
+
+  const handleClearAll = () => {
+    dispatch({type: "CLEAR_ALL"});
+    inputRef.current?.focus();
+  }
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  })
+
+  return (
+    <>
+      <div className={"min-h-[80vh] w-full"}>
+        <div className={"flex justify-center"}>
+          <div className={"p-6"}>
+            <TodoForm dispatch={dispatch} inputRef={inputRef}/>
+
+          </div>
+        </div>
+        <div className="w-full space-x-2">
+          <TodoList todos={todos} dispatch={dispatch} editInputRef={editInputRef} inputRef={inputRef}/>
+        </div>
+        { todos.length > 0 ? (
+          <>
+            <div className={"sticky space-x-5 flex justify-between border-t pt-2 mt-4 font-semibold text-gray-600"}>
+              <span>Total: {totalTasks}</span>
+              <span>Active: {activeTasks}</span>
+              <span>Completed: {completedTasks}</span>
+            </div>
+            <div className="text-end mt-4">
+              <Button
+                variant={"outline"}
+                onClick={handleClearAll}
+              >
+                Clear All
+              </Button>
+              <p className="text-center text-xl font-semibold">{(totalTasks - completedTasks) > 0}</p>
+            </div>
+          </> ) : null }
+      </div>
+
+
+    </>
+
+  )
+}
+
+export default Todo
