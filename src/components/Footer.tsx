@@ -2,9 +2,9 @@ const Footer = () => {
   return (
     <>
       <footer
-        className={"w-full h-12 sticky py-6 transition-colors duration-300 dark:text-neutral-200"}
+        className={"sticky transition-colors duration-300 dark:text-neutral-200"}
       >
-        <div className="container mx-auto text-center">
+        <div className="mx-auto text-center">
           <div
             className={"flex items-center justify-center mx-auto max-w-6xl border-t transition-colors duration-300 border-gray-300 dark:border-gray-700"}
           >
