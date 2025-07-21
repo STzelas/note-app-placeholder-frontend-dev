@@ -5,24 +5,32 @@ import LoginPage from "@/pages/LoginPage.tsx";
 import RegisterPage from "@/pages/RegisterPage.tsx";
 import NotesPage from "./pages/NotesPage";
 import TodoPage from "@/pages/TodoPage.tsx";
+import { AuthProvider } from "@/context/AuthProvider.tsx";
+import ProtectedRoute from "@/components/ProtectedRoute.tsx";
+import NotFoundPage from "@/pages/NotFoundPage.tsx";
 
 function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Noterr/>}>
-            <Route index element={<HomePage/>} />
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Noterr/>}>
+              <Route index element={<HomePage/>} />
 
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/register" element={<RegisterPage/>}/>
-            <Route path="/note-app" element={<NotesPage/>}/>
-            <Route path="/todo-app" element={<TodoPage/>}/>
+              <Route path="login" element={<LoginPage/>}/>
+              <Route path="register" element={<RegisterPage/>}/>
 
-          </Route>
-        </Routes>
-      </BrowserRouter>
+              <Route path="apps" element={<ProtectedRoute/>}>
+                <Route path="note-app" element={<NotesPage/>}/>
+                <Route path="todo-app" element={<TodoPage/>}/>
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   )
 }
