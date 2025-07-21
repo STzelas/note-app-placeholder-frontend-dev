@@ -24,8 +24,9 @@ function App() {
 
               <Route path="apps" element={<ProtectedRoute/>}>
                 <Route path="note-app" element={<NotesPage/>}/>
-                <Route path="todo-app" element={<TodoPage/>}/>
+
               </Route>
+              <Route path="todo-app" element={<TodoPage/>}/>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
