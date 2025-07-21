@@ -35,7 +35,7 @@ const Header = () => {
             />
           </Link>
           <Link
-            to="/note-app" // Notes app
+            to="/apps/note-app" // Notes app
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <Notebook
@@ -45,7 +45,7 @@ const Header = () => {
             />
           </Link>
           <Link
-            to="/todo-app" // To-do app
+            to="/apps/todo-app" // To-do app
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <ListTodo
