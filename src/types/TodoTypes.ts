@@ -15,14 +15,14 @@ type Action =
 
 type TodoFormProps = {
   dispatch: React.Dispatch<Action>
-  inputRef: React.RefObject<HTMLInputElement | null>
+  inputRef: React.RefObject<HTMLTextAreaElement | null>
 }
 
 type TodoListProps = {
   todos: TodoProps[]
   dispatch: React.Dispatch<Action>
-  editInputRef: React.RefObject<HTMLInputElement | null>
-  inputRef: React.RefObject<HTMLInputElement | null>
+  editInputRef: React.RefObject<HTMLTextAreaElement | null>
+  inputRef: React.RefObject<HTMLTextAreaElement | null>
 }
 
 export type { TodoProps, TodoFormProps, TodoListProps, Action}
