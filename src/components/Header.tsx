@@ -35,7 +35,7 @@ const Header = () => {
             />
           </Link>
           <Link
-            to="/apps/note-app" // Notes app
+            to="/note-app" // Notes app
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <Notebook
