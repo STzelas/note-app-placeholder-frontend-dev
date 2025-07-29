@@ -9,10 +9,12 @@ export const noteSchema = z.object({
 
 export type Note = z.infer<typeof noteSchema>;
 
+export type NoteEditorHandle = {
+  focusTitle: () => void;
+};
+
 export type NoteEditorProps = {
-  note: Note;
-  onSave: (note: Note) => void;
-  onCancel: () => void;
+  onSave: (note: Omit<Note, "id" | "createdAt">) => void;
 }
 
 export type NoteViewProps = {
@@ -22,8 +24,6 @@ export type NoteViewProps = {
 
 export type NotesSidebarProps = {
   notes: Note[];
-  onSelectNote: (note: Note) => void;
   createNewNote: () => void;
   onDeleteNote: (id: string) => void;
-  activeNoteId?: string;
 }
