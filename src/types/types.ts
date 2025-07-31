@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 export const noteSchema = z.object({
-  id: z.string(),
   title: z.string(),
   content: z.string(),
-  createdAt: z.number()
+  createdAt: z.date().default(() => new Date()),
+  updatedAt: z.date().default(() => new Date())
 })
 
-export type Note = z.infer<typeof noteSchema>;
+export type NoteType = z.infer<typeof noteSchema>;
 
 
 export const registerSchema = z.object({
