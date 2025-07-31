@@ -48,7 +48,6 @@ export default function LoginPage() {
           <Input
             {...register("username")}
             id="username"
-            autoFocus
             placeholder={"Username"}
           />
           {errors.username && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.username.message}</div>}
@@ -60,7 +59,6 @@ export default function LoginPage() {
             {...register("password")}
             id="password"
             type="password"
-            autoFocus
             placeholder={"Password"}
           />
           {errors.password && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.password.message}</div>}
