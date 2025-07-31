@@ -1,16 +1,4 @@
-import { z } from "zod"
-
-export const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-})
-
-export type LoginFields = z.infer<typeof loginSchema>
-
-// export type LoginFields = {
-//   username: string,
-//   password: string,
-// }
+import type {LoginFields} from "@/types/types.ts";
 
 export type LoginResponse = {
   access_token: string,
