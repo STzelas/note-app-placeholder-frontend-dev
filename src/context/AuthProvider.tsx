@@ -1,13 +1,10 @@
 import {type ReactNode, useEffect, useState} from "react";
 import {deleteCookie, getCookie, setCookie} from "@/utils/cookies.ts";
 import {jwtDecode} from "jwt-decode";
-import {login, type LoginFields} from "@/api/login.ts";
+import {type JwtPayload, type LoginFields} from "@/types/types.ts";
 import {AuthContext} from "./AuthContext.ts";
+import {login} from "@/api/login.ts";
 
-type JwtPayload = {
-  email?: string;
-  tenant_id?: string;
-}
 
 export const AuthProvider = ({children}:{children: ReactNode}) => {
 
