@@ -1,10 +1,4 @@
-import type {LoginFields} from "@/types/types.ts";
-
-export type LoginResponse = {
-  access_token: string,
-  token_type: string,
-
-}
+import type {LoginFields, LoginResponse} from "@/types/types.ts";
 
 export async function login ({username, password}: LoginFields):Promise<LoginResponse> {
   const form = new URLSearchParams();
@@ -14,7 +8,7 @@ export async function login ({username, password}: LoginFields):Promise<LoginRes
   const res = await fetch(import.meta.env.VITE_API_URL + "/login/access-token",
     {
       method: "POST",
-      headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
       body: form.toString()
     }
   );
