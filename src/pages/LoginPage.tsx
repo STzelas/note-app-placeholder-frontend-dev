@@ -5,6 +5,7 @@ import {useNavigate} from "react-router";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type LoginFields, loginSchema} from "@/types/types.ts";
+import {login} from "@/api/login.ts";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,9 +21,11 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFields) => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(data)
+      const response = await login(data);
+      console.log("Login successful", response)
+      navigate("/note-app");
     } catch (error) {
+
       setError("root", {
         message: "There was a problem logging in. Check your credentials.",
       })
