@@ -30,20 +30,22 @@ export const loginSchema = z.object({
 export type LoginFields = z.infer<typeof loginSchema>
 
 export type LoginResponse = {
-  access_token: string,
-  token_type: string,
+  firstname: string,
+  lastname: string,
+  token: string,
 }
 
 export type AuthContextProps = {
   isAuthenticated: boolean;
   accessToken: string | null;
-  tenantId: string | null;
+  userId: number | null;
   loginUser: (fields: LoginFields) => Promise<void>;
   logoutUser: () => void;
   loading: boolean;
 }
 
 export type JwtPayload = {
-  email?: string;
-  tenant_id?: string;
+  username?: string;
+  userId?: number;
+  exp?: number;
 }
