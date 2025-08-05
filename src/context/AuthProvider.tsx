@@ -1,78 +1,80 @@
-import {type ReactNode, useEffect, useState} from "react";
+import {AuthContext} from "@/context/AuthContext.ts";
+import {type PropsWithChildren, useEffect, useState} from "react";
+import type {JwtPayload, LoginFields} from "@/types/types.ts";
+import {login} from "@/api/login.ts";
 import {deleteCookie, getCookie, setCookie} from "@/utils/cookies.ts";
 import {jwtDecode} from "jwt-decode";
-import {type JwtPayload, type LoginFields} from "@/types/types.ts";
-import {AuthContext} from "./AuthContext.ts";
-import {login} from "@/api/login.ts";
 
+type AuthProviderProps = PropsWithChildren
 
-export const AuthProvider = ({children}:{children: ReactNode}) => {
-
+export const AuthProvider = ({children} : AuthProviderProps) => {
   const [ accessToken, setAccessToken ] = useState<string | null>(null);
-  const [ tenantId, setTenantId ] = useState<string | null>(null);
-  const [ loading, setLoading ] = useState<boolean>(true);
+  const [ userId, setUserId ] = useState<number | null>(null);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
     const token = getCookie("access_token");
-    setAccessToken(token ?? null);  // token αλλιώς θα είναι null
+    setAccessToken(token ?? null);
 
-    // decode to get tenant id
     if (token) {
       try {
-        const decoded:JwtPayload = jwtDecode(token);
-        console.log(decoded);
-        setTenantId(decoded.tenant_id ?? null)
-      } catch {
-        setTenantId(null);
+        const decoded = jwtDecode<JwtPayload>(token);
+        setUserId(decoded.userId ?? null);
+      } catch (err) {
+        console.log(err);
+        setUserId(null);
       }
     } else {
-      setTenantId(null);
+      setUserId(null);
     }
 
-    // Αφού πήραμε το tenant id, τώρα θα εμφανιστεί το περιεχόμενο
     setLoading(false);
-
   }, []);
 
   const loginUser = async (fields: LoginFields) => {
-    const res = await login(fields)
-    setCookie("access_token", res.access_token, {
-      expires: 1,
-      sameSite: "Lax",
-      secure: false, // επειδή τρέχουμε σε localhost, αλλιώς πάντα true
-      path: "/"
-    })
-
-    setAccessToken(res.access_token);
-
     try {
-      const decoded: JwtPayload = jwtDecode(res.access_token);
-      setTenantId(decoded.tenant_id ?? null);
-    } catch {
-      setTenantId(null);
+      const response = await login(fields);
+      const token = response.token;
+
+      const decoded: JwtPayload = jwtDecode(token);
+      // Token expires in 3 hours, cookie will too
+      const expiryDate = new Date(Date.now() + 3 * 60 * 60 * 1000)
+
+      setCookie("access_token", token, {
+        expires: expiryDate,
+        sameSite: "Lax",
+        secure: false, // true in production
+        path: "/"
+      });
+
+      setAccessToken(token);
+      setUserId(decoded.userId ?? null);
+
+    } catch (err) {
+      console.error("Login error:", err);
+      setAccessToken(null);
+      setUserId(null);
     }
+  };
 
-    setLoading(false);
-  }
-
-  const logoutUser = () => {
+  const logoutUser = async () => {
     deleteCookie("access_token");
     setAccessToken(null);
-    setTenantId(null);
+    setUserId(null);
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated: !!accessToken, // αν υπάρχει είναι authenticated
-        accessToken,
-        tenantId,
-        loginUser,
-        logoutUser,
-        loading
-      }}
-    >
+    <AuthContext.Provider value={{
+      isAuthenticated: !!accessToken,
+      accessToken,
+      userId,
+      loginUser,
+      logoutUser,
+      loading
+    }}>
       {loading ? null : children}
     </AuthContext.Provider>
   )
 };
+
+export default AuthProvider
