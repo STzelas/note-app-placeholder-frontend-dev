@@ -3,8 +3,9 @@ import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import { useNavigate } from "react-router";
 import {useForm} from "react-hook-form";
-import {type LoginFields, type RegisterFields, registerSchema} from "@/types/types.ts";
+import {type RegisterFields, registerSchema} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
+import registerUser from "@/api/registerUser.ts";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ const RegisterPage = () => {
     navigate("/");
   }
 
-  const onSubmit = async (data: LoginFields) => {
+  const onSubmit = async (data: RegisterFields) => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await registerUser(data)
       console.log(data);
     } catch (error) {
       setError("root", {
