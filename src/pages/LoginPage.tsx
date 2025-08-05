@@ -5,9 +5,11 @@ import {useNavigate} from "react-router";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type LoginFields, loginSchema} from "@/types/types.ts";
-import {login} from "@/api/login.ts";
+import {useAuth} from "@/hooks/useAuth.ts";
 
 export default function LoginPage() {
+  const { loginUser } = useAuth()
+
   const navigate = useNavigate();
   const {
     register,
@@ -21,8 +23,8 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFields) => {
     try {
-      const response = await login(data);
-      console.log("Login successful", response)
+      await loginUser(data)
+        .then(() => console.log("Successfully logged in"))
       navigate("/note-app");
     } catch (error) {
 
