@@ -1,10 +1,11 @@
 import type {LoginFields, LoginResponse} from "@/types/types.ts";
-import axios, {type AxiosError} from "axios";
+import axiosInstance from "@/api/axiosInstance.ts";
+import type {AxiosError} from "axios";
 
 export async function login ({username, password}: LoginFields):Promise<LoginResponse> {
   try {
-    const response = await axios.post<LoginResponse>(
-      `${import.meta.env.VITE_API_URL}/login`,
+    const response = await axiosInstance.post<LoginResponse>(
+      `/login`,
       { username, password },
       {
         headers: {
@@ -22,5 +23,4 @@ export async function login ({username, password}: LoginFields):Promise<LoginRes
     }
     throw new Error(detail);
   }
-
 }
