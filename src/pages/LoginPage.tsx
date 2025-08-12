@@ -25,9 +25,8 @@ export default function LoginPage() {
     try {
       await loginUser(data)
         .then(() => console.log("Successfully logged in"))
-      navigate("/note-app");
+        .then(() => navigate("/note-app"))
     } catch (error) {
-
       setError("root", {
         message: "There was a problem logging in. Check your credentials.",
       })
