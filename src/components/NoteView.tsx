@@ -11,7 +11,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Save} from "lucide-react";
-
+import { saveNote } from "@/api/notes";
 
 
 const NoteView = () => {
@@ -23,12 +23,13 @@ const NoteView = () => {
     resolver: zodResolver(noteSchema)
   })
 
-  const onSubmit = async (data: Omit<NoteType, "createdAt" | "updatedAt">) => {
+  const onSubmit = async ({title, content}: NoteType) => {
+    console.log("Form data: ", title, content)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("Submitted data: ", data);
+      const savedNote = await saveNote({title, content}).then(() => location.reload());
+      console.log(savedNote)
     } catch (error) {
-      console.log(error);
+      console.log("Save failed with error: ", error);
     }
   }
 
@@ -51,17 +52,18 @@ const NoteView = () => {
           <Textarea
             placeholder="Write your note here..."
             {...register("content")}
+            id="content"
             // value={}
             // onChange={}
             className="h-[calc(100vh-350px)] resize-none border-none focus-visible:ring-0 p-0"
           />
         </CardContent>
         <CardFooter className="flex justify-end space-x-2">
-          <Button variant="outline" >
+          <Button variant="outline" type={"button"}>
             Edit Note
           </Button>
           <Button
-            type={"submit"}
+            type="submit"
           >
             <Save className="h-4 w-4 mr-2" />
             Save
