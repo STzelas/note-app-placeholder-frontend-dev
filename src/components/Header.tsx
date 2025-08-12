@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState} from "react";
 import { Link } from "react-router";
-import {Github, House, ListTodo, LogIn, Menu, Notebook, X} from "lucide-react";
+import {Github, House, ListTodo, LogIn, LogOut, Menu, Notebook, X} from "lucide-react";
+import {useAuth} from "@/hooks/useAuth.ts";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const {logoutUser, isAuthenticated} = useAuth()
 
   return (
     <header className="bg-cf-dark-red fixed w-4/5 z-50">
@@ -66,8 +68,20 @@ const Header = () => {
                 " dark:hover:text-neutral-400"}
             />
           </a>
-          <Link
-            to="/login" // Notes Page
+          {isAuthenticated ? (
+            <Link
+              to="/login"
+              className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+            >
+              <LogOut
+                onClick={logoutUser}
+                className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                  "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                  " dark:hover:text-neutral-400"}
+              />
+            </Link>
+          ) : <Link
+            to="/login"
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <LogIn
@@ -75,9 +89,7 @@ const Header = () => {
                 "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
                 " dark:hover:text-neutral-400"}
             />
-          </Link>
-
-
+          </Link>}
       </nav>
     </div>
 </header>
