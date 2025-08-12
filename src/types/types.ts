@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
 export const noteSchema = z.object({
-  title: z.string(),
-  content: z.string(),
-  createdAt: z.date().default(() => new Date()),
-  updatedAt: z.date().default(() => new Date())
+  id: z.string().optional(),
+  title: z.string().min(3, "Title is required"),
+  content: z.string().min(3, "Content is required"),
 })
 
 export type NoteType = z.infer<typeof noteSchema>;
@@ -49,3 +48,7 @@ export type JwtPayload = {
   userId?: number;
   exp?: number;
 }
+
+export type NoteViewProps = {
+  onNoteSaved: (note: NoteType) => void;
+};
