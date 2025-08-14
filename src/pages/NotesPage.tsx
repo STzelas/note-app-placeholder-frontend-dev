@@ -34,8 +34,18 @@ const NotesPage = () => {
                                                    loading={loading}
                                                    onNoteSelect={setSelectedNote}/></span>
         <span className={"w-[75%] h-[75%]"}><NoteView
-          onNoteSaved={note => setNotes(prevState => [...prevState, note])}
+          onNoteSaved={note => {
+            setNotes(prevState => {
+              const exists = prevState.find(n => n.id === note.id)
+              if (exists) {
+                return prevState.map(n => n.id === note.id ? note : n)
+              } else {
+                return [...prevState, note]
+              }
+            })
+          }}
           note={selectedNote}
+          isNew={!selectedNote?.id}
         /></span>
       </div>
 
