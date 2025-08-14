@@ -1,17 +1,17 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button.tsx";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import {Trash2} from "lucide-react";
+import {Plus, Trash2} from "lucide-react";
 import type {NoteSideBarProps} from "@/types/types.ts";
 
 
-export default function NotesSidebar({notes, loading, onNoteSelect}: NoteSideBarProps) {
+export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete, onCreateNewNote}: NoteSideBarProps) {
 
 
 
   if (loading) return <p>Loading notes...</p>;
   return (
-    <Card className="h-full">
+    <Card className="h-[90%]">
       <CardHeader>
         <CardTitle>My Notes</CardTitle>
       </CardHeader>
@@ -21,19 +21,27 @@ export default function NotesSidebar({notes, loading, onNoteSelect}: NoteSideBar
             <h3>No notes yet</h3>
             <Button
               className={""}
-              // onClick={createNewNote}
+              onClick={onCreateNewNote}
             >
               Create a note
             </Button>
-
           </div>
         ) : (
+          <>
 
-          <ScrollArea className="h-[calc(100vh-250px)] mt-5">
+            <Button
+            className={""}
+            onClick={onCreateNewNote}
+            >
+            Create a note
+              <Plus/>
+            </Button>
+            <ScrollArea className="h-[calc(100vh-250px)] mt-5 overflow-auto">
+
             <div>
               {notes.map(note => (
                 <div
-                  className={"p-3 rounded-md cursor-pointer hover:bg-accent transition-colors hover:bg-gray-200"}
+                  className={"p-3 mr-5 rounded-md cursor-pointer hover:bg-accent transition-colors hover:bg-gray-200"}
                   key={note.id}
                   onClick={() => onNoteSelect(note)}
                 >
@@ -50,18 +58,19 @@ export default function NotesSidebar({notes, loading, onNoteSelect}: NoteSideBar
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-muted-foreground hover:text-destructive cursor-pointer"
-
+                      onClick={() => {
+                        if (note?.id) onNoteDelete(note.id);
+                      }}
                     >
                       <Trash2
-                        // onClick={() => onDeleteNote(note.id)}
-                        className="h-4 w-4" />
+                        className="h-4 w-4"/>
                     </Button>
                   </div>
                 </div>
               ))}
 
             </div>
-          </ScrollArea>
+          </ScrollArea></>
         )}
       </CardContent>
     </Card>
