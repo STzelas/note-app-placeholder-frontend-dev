@@ -8,6 +8,7 @@ const NotesPage = () => {
 
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [loading, setLoading ] = useState<boolean>(true);
+  const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -29,8 +30,13 @@ const NotesPage = () => {
   return (
     <>
       <div className="flex justify-center w-full space-x-4 mt-2">
-        <span className={"w-[25%]"}> <NotesSidebar notes={notes} loading={loading}/></span>
-        <span className={"w-[75%] h-[75%]"}><NoteView onNoteSaved={note => setNotes(prevState => [...prevState, note])}/></span>
+        <span className={"w-[25%]"}> <NotesSidebar notes={notes}
+                                                   loading={loading}
+                                                   onNoteSelect={setSelectedNote}/></span>
+        <span className={"w-[75%] h-[75%]"}><NoteView
+          onNoteSaved={note => setNotes(prevState => [...prevState, note])}
+          note={selectedNote}
+        /></span>
       </div>
 
       {/*<NoteView/> */}
