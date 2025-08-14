@@ -11,13 +11,14 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Save, Trash2, X} from "lucide-react";
-import { saveNote, updateNote } from "@/api/notes";
-import {useEffect, useState} from "react";
+import {saveNote, updateNote} from "@/api/notes";
+import {useEffect, useRef, useState} from "react";
 
 
-const NoteView = ({onNoteSaved, note, isNew}:NoteViewProps) => {
+const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
 
   const [isEditing, setIsEditing] = useState(isNew);
+  const titleRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -35,6 +36,10 @@ const NoteView = ({onNoteSaved, note, isNew}:NoteViewProps) => {
         content: note.content,
       })
       setIsEditing(isNew)
+      if (titleRef.current) {
+        titleRef.current.disabled = false;  // or control via state
+        titleRef.current.focus();
+      }
     }
   }, [note, isNew, reset])
 
@@ -76,6 +81,10 @@ const NoteView = ({onNoteSaved, note, isNew}:NoteViewProps) => {
           <Input
             placeholder="Note title"
             {...register("title")}
+            ref={(e) => {
+              register("title").ref(e)
+              titleRef.current = e
+            }}
             id="title"
             disabled={!isEditing}
             className="text-xl font-bold border-none px-0 focus-visible:ring-0"
@@ -115,8 +124,12 @@ const NoteView = ({onNoteSaved, note, isNew}:NoteViewProps) => {
                 onClick={() => setIsEditing(true)}
               >
               Edit Note
-              </Button><Button
+              </Button>
+              <Button
                 type="button"
+                onClick={() => {
+                  if (note?.id) onNoteDelete(note.id)
+                }}
               >
                 <Trash2 className="h-4 w-4 mr-2"/>
               Delete
