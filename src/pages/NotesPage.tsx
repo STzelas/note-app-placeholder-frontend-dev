@@ -1,14 +1,16 @@
 import NotesSidebar from "@/components/NotesSidebar.tsx";
 import NoteView from "@/components/NoteView.tsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import type {NoteType} from "@/types/types.ts";
 import axiosInstance from "@/api/axiosInstance.ts";
+import {deleteNote} from "@/api/notes.ts";
 
 const NotesPage = () => {
 
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [loading, setLoading ] = useState<boolean>(true);
   const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
+  const noteEditorRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -25,15 +27,49 @@ const NotesPage = () => {
     };
 
     fetchNotes();
+
+
   }, []);
+
+  useEffect(() => {
+    if (selectedNote && noteEditorRef.current) {
+      noteEditorRef.current.focus();
+    }
+  }, [selectedNote]);
+
+  const handleDelete = async (id: number) => {
+    try {
+      if (confirm("Are you sure you want to delete this note?")) {
+        await deleteNote(id);
+        setNotes(prev => prev.filter(note => note.id !== id));
+        if (selectedNote?.id === id) setSelectedNote(null);
+      }
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
+  };
+
+  const handleCreateNewNote = () => {
+    const newNote: NoteType = {
+      title: "",
+      content: "",
+    }
+    setSelectedNote(newNote);
+  };
 
   return (
     <>
       <div className="flex justify-center w-full space-x-4 mt-2">
-        <span className={"w-[25%]"}> <NotesSidebar notes={notes}
-                                                   loading={loading}
-                                                   onNoteSelect={setSelectedNote}/></span>
-        <span className={"w-[75%] h-[75%]"}><NoteView
+        <div className={"w-[25%]"}>
+          <NotesSidebar notes={notes}
+                        loading={loading}
+                        onNoteSelect={setSelectedNote}
+                        onNoteDelete={handleDelete}
+                        onCreateNewNote={handleCreateNewNote}
+          />
+        </div>
+        <div className={"w-[75%] h-[75%]"}>
+          <NoteView
           onNoteSaved={note => {
             setNotes(prevState => {
               const exists = prevState.find(n => n.id === note.id)
@@ -46,7 +82,10 @@ const NotesPage = () => {
           }}
           note={selectedNote}
           isNew={!selectedNote?.id}
-        /></span>
+          onNoteDelete={handleDelete}
+          // editorRef={noteEditorRef}
+          />
+        </div>
       </div>
 
       {/*<NoteView/> */}
