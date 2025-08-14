@@ -5,7 +5,7 @@ import {Trash2} from "lucide-react";
 import type {NoteSideBarProps} from "@/types/types.ts";
 
 
-export default function NotesSidebar({notes, loading}: NoteSideBarProps) {
+export default function NotesSidebar({notes, loading, onNoteSelect}: NoteSideBarProps) {
 
 
 
@@ -35,6 +35,7 @@ export default function NotesSidebar({notes, loading}: NoteSideBarProps) {
                 <div
                   className={"p-3 rounded-md cursor-pointer hover:bg-accent transition-colors hover:bg-gray-200"}
                   key={note.id}
+                  onClick={() => onNoteSelect(note)}
                 >
                   <div className="flex justify-between items-center">
                     <div>
