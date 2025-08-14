@@ -1,35 +1,15 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import type {NoteType} from "@/types/types.ts";
 import {Trash2} from "lucide-react";
-import axiosInstance from "@/api/axiosInstance.ts";
+import type {NoteSideBarProps} from "@/types/types.ts";
 
 
-export default function NotesSidebar() {
-  const [notes, setNotes] = useState<NoteType[]>([]);
-  const [loading, setLoading ] = useState<boolean>(true);
+export default function NotesSidebar({notes, loading}: NoteSideBarProps) {
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const res = await axiosInstance.get("http://localhost:8080/api/notes", {
-          withCredentials: true // ⬅ sends cookies with the request
-        });
-        setNotes(res.data);
-      } catch (error) {
-        console.error("Error fetching notes:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchNotes();
-  }, []);
 
   if (loading) return <p>Loading notes...</p>;
-
   return (
     <Card className="h-full">
       <CardHeader>
@@ -48,6 +28,7 @@ export default function NotesSidebar() {
 
           </div>
         ) : (
+
           <ScrollArea className="h-[calc(100vh-250px)] mt-5">
             <div>
               {notes.map(note => (
