@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const noteSchema = z.object({
-  id: z.string().optional(),
+  id: z.number().optional(),
   title: z.string().min(3, "Title is required"),
   content: z.string().min(3, "Content is required"),
 })
@@ -58,4 +58,5 @@ export type NoteSideBarProps = {
 export type NoteViewProps = {
   onNoteSaved: (note: NoteType) => void;
   note: NoteType | null;
+  isNew?: boolean;
 }
