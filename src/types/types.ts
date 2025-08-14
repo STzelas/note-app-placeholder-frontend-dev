@@ -4,6 +4,7 @@ export const noteSchema = z.object({
   id: z.number().optional(),
   title: z.string().min(3, "Title is required"),
   content: z.string().min(3, "Content is required"),
+  deleted: z.boolean().optional(),
 })
 
 export type NoteType = z.infer<typeof noteSchema>;
@@ -53,10 +54,13 @@ export type NoteSideBarProps = {
   notes: NoteType[];
   loading: boolean;
   onNoteSelect: (note: NoteType) => void;
+  onNoteDelete: (id : number) => void;
+  onCreateNewNote: () => void;
 };
 
 export type NoteViewProps = {
   onNoteSaved: (note: NoteType) => void;
+  onNoteDelete: (id : number) => void;
   note: NoteType | null;
   isNew?: boolean;
 }
