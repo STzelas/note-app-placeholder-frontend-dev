@@ -10,12 +10,14 @@ import {noteSchema, type NoteType, type NoteViewProps} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {Save} from "lucide-react";
-import { saveNote } from "@/api/notes";
-import {useEffect} from "react";
+import {Save, Trash2, X} from "lucide-react";
+import { saveNote, updateNote } from "@/api/notes";
+import {useEffect, useState} from "react";
 
 
-const NoteView = ({onNoteSaved, note}:NoteViewProps) => {
+const NoteView = ({onNoteSaved, note, isNew}:NoteViewProps) => {
+
+  const [isEditing, setIsEditing] = useState(isNew);
 
   const {
     register,
@@ -32,19 +34,38 @@ const NoteView = ({onNoteSaved, note}:NoteViewProps) => {
         title: note.title,
         content: note.content,
       })
+      setIsEditing(isNew)
     }
-  }, [note, reset])
+  }, [note, isNew, reset])
 
+  /**
+   * On submit with Save / Edit depending
+   * on if the note isNew or not
+   */
   const onSubmit = async ({title, content}: NoteType) => {
     console.log("Form data: ", title, content)
     try {
-      const savedNote = await saveNote({title, content});
-      onNoteSaved(savedNote);
-      console.log(savedNote)
+      if (isNew) {
+        const savedNote = await saveNote({title, content});
+        onNoteSaved(savedNote);
+
+        console.log(savedNote)
+      } else if (note?.id) {
+        console.log("Note id: ", note.id)
+        const updatedNote = await updateNote(note.id, { title, content});
+        onNoteSaved(updatedNote);
+      }
+      setIsEditing(false);
+
     } catch (error) {
       console.log("Save failed with error: ", error);
     }
   }
+
+  const handleCancel = () => {
+    reset(note || { title: "", content: "" });
+    setIsEditing(false);
+  };
 
   return (
     <form
@@ -56,8 +77,7 @@ const NoteView = ({onNoteSaved, note}:NoteViewProps) => {
             placeholder="Note title"
             {...register("title")}
             id="title"
-            // value={}
-            // onChange={}
+            disabled={!isEditing}
             className="text-xl font-bold border-none px-0 focus-visible:ring-0"
           />
         </CardHeader>
@@ -66,21 +86,45 @@ const NoteView = ({onNoteSaved, note}:NoteViewProps) => {
             placeholder="Write your note here..."
             {...register("content")}
             id="content"
-            // value={}
-            // onChange={}
+            disabled={!isEditing}
             className="h-[calc(100vh-350px)] resize-none border-none focus-visible:ring-0 p-0"
           />
         </CardContent>
         <CardFooter className="flex justify-end space-x-2">
-          <Button variant="outline" type={"button"}>
-            Edit Note
-          </Button>
-          <Button
-            type="submit"
-          >
-            <Save className="h-4 w-4 mr-2" />
-            Save
-          </Button>
+          {isEditing ? (
+            <>
+              <Button
+              variant="outline"
+              type="button"
+              onClick={handleCancel}
+              >
+                <X className="h-4 w-4 mr-2"/>
+                Cancel
+              </Button><Button
+                type="submit"
+              >
+                <Save className="h-4 w-4 mr-2"/>
+                Save
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                type={"button"}
+                onClick={() => setIsEditing(true)}
+              >
+              Edit Note
+              </Button><Button
+                type="button"
+              >
+                <Trash2 className="h-4 w-4 mr-2"/>
+              Delete
+              </Button>
+            </>
+          )}
+
+
         </CardFooter>
       </Card>
     </form>
