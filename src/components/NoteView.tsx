@@ -6,7 +6,7 @@ import {
 } from "./ui/card";
 import { Button } from "@/components/ui/button";
 import {useForm} from "react-hook-form";
-import {noteSchema, type NoteType} from "@/types/types.ts";
+import {noteSchema, type NoteType, type NoteViewProps} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
@@ -14,19 +14,20 @@ import {Save} from "lucide-react";
 import { saveNote } from "@/api/notes";
 
 
-const NoteView = () => {
+const NoteView = ({onNoteSaved}:NoteViewProps) => {
 
   const {
     register,
     handleSubmit,
-  } = useForm<Omit<NoteType, "createdAt" | "updatedAt">>({
+  } = useForm<NoteType>({
     resolver: zodResolver(noteSchema)
   })
 
   const onSubmit = async ({title, content}: NoteType) => {
     console.log("Form data: ", title, content)
     try {
-      const savedNote = await saveNote({title, content}).then(() => location.reload());
+      const savedNote = await saveNote({title, content});
+      onNoteSaved(savedNote);
       console.log(savedNote)
     } catch (error) {
       console.log("Save failed with error: ", error);
