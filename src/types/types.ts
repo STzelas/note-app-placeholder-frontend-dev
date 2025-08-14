@@ -49,6 +49,11 @@ export type JwtPayload = {
   exp?: number;
 }
 
+export type NoteSideBarProps = {
+  notes: NoteType[];
+  loading: boolean;
+};
+
 export type NoteViewProps = {
   onNoteSaved: (note: NoteType) => void;
-};
+}
