@@ -47,3 +47,23 @@ export const updateNote = async (id: number, {title, content}: NoteType) => {
     throw new Error(detail);
   }
 }
+
+export const deleteNote = async (id: number) => {
+  try {
+    const response = await axiosInstance.delete(`/notes/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+    return response.data;
+  } catch (error) {
+    const err = error as AxiosError<{ error?: string }>;
+    let detail = "Note delete error.";
+    if (err.response?.data?.error) {
+      detail = err.response.data.error;
+    }
+    throw new Error(detail);
+  }
+}
