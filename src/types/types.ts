@@ -52,8 +52,10 @@ export type JwtPayload = {
 export type NoteSideBarProps = {
   notes: NoteType[];
   loading: boolean;
+  onNoteSelect: (note: NoteType) => void;
 };
 
 export type NoteViewProps = {
   onNoteSaved: (note: NoteType) => void;
+  note: NoteType | null;
 }
