@@ -12,16 +12,28 @@ import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Save} from "lucide-react";
 import { saveNote } from "@/api/notes";
+import {useEffect} from "react";
 
 
-const NoteView = ({onNoteSaved}:NoteViewProps) => {
+const NoteView = ({onNoteSaved, note}:NoteViewProps) => {
 
   const {
     register,
     handleSubmit,
+    reset
   } = useForm<NoteType>({
     resolver: zodResolver(noteSchema)
   })
+
+  useEffect(() => {
+    if (note) {
+      reset({
+        id: note.id,
+        title: note.title,
+        content: note.content,
+      })
+    }
+  }, [note, reset])
 
   const onSubmit = async ({title, content}: NoteType) => {
     console.log("Form data: ", title, content)
