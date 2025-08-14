@@ -36,9 +36,10 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
         content: note.content,
       })
       setIsEditing(isNew)
-      if (titleRef.current) {
-        titleRef.current.disabled = false;  // or control via state
-        titleRef.current.focus();
+      if (isNew) {
+        setTimeout(() => {
+          titleRef.current?.focus()
+        }, 0)
       }
     }
   }, [note, isNew, reset])
