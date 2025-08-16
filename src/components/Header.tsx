@@ -12,7 +12,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/">
           <img
-            className="h-12"
+            className="h-12 ml-10"
             src=""
             alt="Noterr Logo"
           />
@@ -39,7 +39,7 @@ const Header = () => {
             />
           </Link>
           <Link
-            to="/note-app" // Notes app
+            to="/note-app"
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <Notebook
@@ -49,7 +49,7 @@ const Header = () => {
             />
           </Link>
           <Link
-            to="/todo-app" // To-do app
+            to="/todo-app"
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
             <ListTodo
