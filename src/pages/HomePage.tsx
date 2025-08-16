@@ -1,9 +1,11 @@
 import {useEffect} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import { useNavigate } from "react-router";
+import {useAuth} from "@/hooks/useAuth.ts";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const {isAuthenticated} = useAuth();
 
   useEffect(() => {
     document.title = "Welcome to, Noterr Project"
@@ -11,7 +13,10 @@ const HomePage = () => {
 
   const onLoginRedirect = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    navigate("/login");
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+    navigate("/note-app");
   }
 
   return (
@@ -46,7 +51,7 @@ const HomePage = () => {
           className={""}
           onClick={onLoginRedirect}
         >
-          Go to login!
+          {isAuthenticated ? "Continue" : "Login"}
         </Button>
       </div>
     </>
