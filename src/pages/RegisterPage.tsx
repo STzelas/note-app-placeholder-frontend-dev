@@ -6,6 +6,7 @@ import {useForm} from "react-hook-form";
 import {type RegisterFields, registerSchema} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import registerUser from "@/api/registerUser.ts";
+import {toast} from "sonner";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -26,11 +27,13 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFields) => {
     try {
       await registerUser(data)
-      console.log(data);
+        .then(() => navigate("/login"))
+        .then(() => toast.success("Successfully registered"))
     } catch (error) {
       setError("root", {
         message: "Problem creating Account",
       })
+      toast.error("Error creating Account")
       console.error(error)
     }
   }
@@ -92,7 +95,6 @@ const RegisterPage = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            // onClick={}
           >
             {isSubmitting ? "Creating account..." : "Create an account"}
           </Button>
