@@ -10,11 +10,13 @@ const Header = () => {
   return (
     <header className="bg-cf-dark-red fixed w-4/5 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <img
-          className="h-12"
-          src=""
-          alt="logo"
-        />
+        <Link to="/">
+          <img
+            className="h-12"
+            src=""
+            alt="Noterr Logo"
+          />
+        </Link>
         <button
           className="md:hidden text-white focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -57,7 +59,7 @@ const Header = () => {
             />
           </Link>
           <a
-            href="https://github.com/STzelas"
+            href="https://github.com/STzelas/note-app-placeholder-frontend-dev"
             target="_blank"
             rel="noopener noreferrer"
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
