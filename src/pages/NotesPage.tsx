@@ -25,13 +25,12 @@ const NotesPage = () => {
         setLoading(false);
       }
     };
-
     fetchNotes();
-
 
   }, []);
 
   useEffect(() => {
+    document.title = "Your Notes";
     if (selectedNote && noteEditorRef.current) {
       noteEditorRef.current.focus();
     }
@@ -76,6 +75,7 @@ const NotesPage = () => {
               if (exists) {
                 return prevState.map(n => n.id === note.id ? note : n)
               } else {
+                setSelectedNote(note)
                 return [...prevState, note]
               }
             })
@@ -83,12 +83,9 @@ const NotesPage = () => {
           note={selectedNote}
           isNew={!selectedNote?.id}
           onNoteDelete={handleDelete}
-          // editorRef={noteEditorRef}
           />
         </div>
       </div>
-
-      {/*<NoteView/> */}
 
     </>
   )
