@@ -46,8 +46,8 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
                   onClick={() => onNoteSelect(note)}
                 >
                   <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-medium">{note.title}</h3>
+                    <div className={"min-w-0"}>
+                      <h3 className="font-medium text-wrap truncate">{note.title}</h3>
                       <p className="text-sm text-muted-foreground">
                         {note.content.slice(0, 50)}
                       </p>
