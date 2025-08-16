@@ -3,11 +3,21 @@ import {Button} from "@/components/ui/button.tsx";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import {Plus, Trash2} from "lucide-react";
 import type {NoteSideBarProps} from "@/types/types.ts";
+import {
+  AlertDialog,
+  AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog.tsx";
+import {useState} from "react";
 
 
 export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete, onCreateNewNote}: NoteSideBarProps) {
 
-
+  const [open, setOpen] = useState(false);
 
   if (loading) return <p>Loading notes...</p>;
   return (
@@ -54,17 +64,36 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
                       <p className="text-sm text-muted-foreground">
                       </p>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-muted-foreground hover:text-destructive cursor-pointer"
-                      onClick={() => {
-                        if (note?.id) onNoteDelete(note.id);
-                      }}
-                    >
-                      <Trash2
-                        className="h-4 w-4"/>
-                    </Button>
+                    <AlertDialog open={open} onOpenChange={setOpen}>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-destructive cursor-pointer"
+
+                        >
+                          <Trash2
+                            className="h-4 w-4"/>
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete Note</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete this note? This action cannot be
+                            undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => {
+                            if (note?.id) onNoteDelete(note.id);
+                          }}>
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
               ))}
@@ -76,3 +105,5 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
     </Card>
   );
 }
+
+
