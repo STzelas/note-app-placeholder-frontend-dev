@@ -33,7 +33,9 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
   const {
     register,
     handleSubmit,
-    reset
+    reset,
+    setError,
+    formState: { errors, isSubmitting }
   } = useForm<NoteType>({
     resolver: zodResolver(noteSchema)
   })
@@ -75,6 +77,9 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
 
     } catch (error) {
       console.log("Save failed with error: ", error);
+      setError("root", {
+        message: "There was a problem creating note.",
+      })
     }
   }
 
@@ -89,6 +94,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
     >
       <Card>
         <CardHeader>
+          {errors.title && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.title.message}</div>}
           <Input
             placeholder="Note title"
             {...register("title")}
@@ -100,15 +106,18 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
             disabled={!isEditing}
             className="text-xl font-bold border-none px-0 focus-visible:ring-0"
           />
+
         </CardHeader>
         <CardContent>
+          {errors.content && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.content.message}</div>}
           <Textarea
             placeholder="Write your note here..."
             {...register("content")}
             id="content"
             disabled={!isEditing}
-            className="h-[calc(100vh-350px)] resize-none border-none focus-visible:ring-0 p-0"
+            className="h-[calc(100vh-350px)] resize-none border-none focus-visible:ring-0 p-0 mt-2"
           />
+
         </CardContent>
         <CardFooter className="flex justify-end space-x-2">
           {isEditing ? (
@@ -122,9 +131,10 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
                 Cancel
               </Button><Button
                 type="submit"
+                disabled={isSubmitting}
               >
                 <Save className="h-4 w-4 mr-2"/>
-                Save
+              {isSubmitting ? "Saving..." : "Save"}
               </Button>
             </>
           ) : (
