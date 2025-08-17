@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 export const noteSchema = z.object({
   id: z.number().optional(),
-  title: z.string().min(3, "Title is required"),
-  content: z.string().min(3, "Content is required"),
+  title: z.string().min(1, "Title is required").max(255, "Title must not be more than 255 characters"),
+  content: z.string().min(1, "Content is required").max(1000, "Content must not be more than 1000 characters"),
   deleted: z.boolean().optional(),
 })
 
