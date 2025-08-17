@@ -1,11 +1,27 @@
 import { useState} from "react";
-import { Link } from "react-router";
+import {Link, useNavigate} from "react-router";
 import {Github, House, ListTodo, LogIn, LogOut, Menu, Notebook, X} from "lucide-react";
 import {useAuth} from "@/hooks/useAuth.ts";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog.tsx";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const {logoutUser, isAuthenticated} = useAuth()
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser()
+    navigate("/login")
+  }
 
   return (
     <header className="bg-cf-dark-red fixed w-4/5 z-50">
@@ -72,17 +88,37 @@ const Header = () => {
           </a>
           {isAuthenticated ? (
             <Link
-              to="/login"
+              to="#"
               className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
             >
-              <LogOut
-                onClick={logoutUser}
-                className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
-                  "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
-                  " dark:hover:text-neutral-400"}
-              />
+              <AlertDialog open={open} onOpenChange={setOpen}>
+                <AlertDialogTrigger asChild>
+                  <LogOut
+                    className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                      "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                      " dark:hover:text-neutral-400"}
+                  />
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Logout
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to logout?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleLogout}>
+                      Logout
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </Link>
-          ) : <Link
+          ) :
+          <Link
             to="/login"
             className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
           >
@@ -100,3 +136,5 @@ const Header = () => {
 };
 
 export default Header;
+
+
