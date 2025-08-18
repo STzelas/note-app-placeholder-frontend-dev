@@ -46,12 +46,19 @@ const HomePage = () => {
         </p>
 
       </div>
-      <div className={"flex items-center justify-center space-y-4 mt-5"}>
+      <div className={"flex items-center justify-center space-x-2 mt-5"}>
         <Button
           className={""}
           onClick={onLoginRedirect}
         >
-          {isAuthenticated ? "Continue" : "Login"}
+          {isAuthenticated ? "Continue to Notes App" : "Login"}
+        </Button>
+        <Button
+          variant="outline"
+          className={isAuthenticated ? `hover:bg-gray-200` : 'hidden'}
+          onClick={() => navigate("/todo-app")}
+        >
+          {isAuthenticated ? "Continue to To-do App" : "Login"}
         </Button>
       </div>
     </>
