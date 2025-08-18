@@ -7,6 +7,7 @@ import NotesPage from "./pages/NotesPage";
 import { AuthProvider } from "@/context/AuthProvider.tsx";
 import NotFoundPage from "@/pages/NotFoundPage.tsx";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
+import TodoPage from "@/pages/TodoPage.tsx";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
               <Route path="register" element={<RegisterPage/>}/>
               <Route element={<ProtectedRoute/>}>
                 <Route path="note-app" element={<NotesPage/>}/>
+                <Route path="todo-app" element={<TodoPage/>}/>
               </Route>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
