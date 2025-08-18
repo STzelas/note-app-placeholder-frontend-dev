@@ -51,9 +51,10 @@ export const AuthProvider = ({children} : AuthProviderProps) => {
       setUserId(decoded.userId ?? null);
 
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("API Login error:", err);
       setAccessToken(null);
       setUserId(null);
+      throw err;
     }
   };
 
