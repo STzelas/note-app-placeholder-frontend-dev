@@ -9,6 +9,15 @@ export const noteSchema = z.object({
 
 export type NoteType = z.infer<typeof noteSchema>;
 
+export const todoSchema = z.object({
+  id: z.number().optional(),
+  description: z.string().min(1, "Description is required").max(255, "Description must not be more than 255 characters"),
+  importance: z.string().min(1, "Importance is required"),
+  completed: z.boolean().default(false).optional(),
+})
+
+export type TodoType = z.infer<typeof todoSchema>;
+
 
 export const registerSchema = z.object({
   username: z.string().min(3, {error: "Username must be at least 3 characters"}),
@@ -64,3 +73,11 @@ export type NoteViewProps = {
   note: NoteType | null;
   isNew?: boolean;
 }
+
+export type TodoViewProps = {
+  todos: TodoType[];
+  loading: boolean;
+  onTodoDelete: (id : number) => void;
+  onTodoCreate: (todo: TodoType) => void;
+  // onTodoEdit: (id : number) => void;
+};
