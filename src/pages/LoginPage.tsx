@@ -25,12 +25,12 @@ export default function LoginPage() {
     try {
       await loginUser(data)
         .then(() => console.log("Successfully logged in"))
-        .then(() => navigate("/note-app"))
+        .then(() => navigate("/"))
     } catch (error) {
       setError("root", {
-        message: "There was a problem logging in. Check your credentials.",
+        message: "Wrong username or password. Please try again.",
       })
-      console.error(error)
+      console.error("Login page error" , error)
     }
   }
 
@@ -41,10 +41,12 @@ export default function LoginPage() {
 
   return (
     <>
+
       <form
         className="max-w-sm mx-auto p-8 space-y-4 mt-20 rounded-xl bg-white shadow-xl"
         onSubmit={handleSubmit(onSubmit)}
       >
+        {errors.root && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.root.message}</div>}
         <h3 className="text-xl font-semibold text-center text-gray-600">Welcome!</h3>
         <p className="mt-1 text-center text-gray-500 ">Login or create account</p>
         <div>
