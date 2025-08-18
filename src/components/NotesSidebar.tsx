@@ -38,7 +38,6 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
           </div>
         ) : (
           <>
-
             <Button
             className={""}
             onClick={onCreateNewNote}
@@ -46,7 +45,7 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
             Create a note
               <Plus/>
             </Button>
-            <ScrollArea className="h-[calc(100vh-250px)] mt-5 overflow-auto">
+            <ScrollArea className="h-[calc(90vh-250px)] mt-5 overflow-auto">
 
             <div>
               {notes.map(note => (
