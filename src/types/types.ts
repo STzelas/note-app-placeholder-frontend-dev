@@ -12,7 +12,7 @@ export type NoteType = z.infer<typeof noteSchema>;
 export const todoSchema = z.object({
   id: z.number().optional(),
   description: z.string().min(1, "Description is required").max(255, "Description must not be more than 255 characters"),
-  importance: z.string().min(1, "Importance is required"),
+  importance: z.string("Importance must be a valid option.").min(1, "Importance is required"),
   isComplete: z.boolean().default(false).optional(),
 })
 
