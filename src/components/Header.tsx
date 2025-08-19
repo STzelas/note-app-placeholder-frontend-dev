@@ -24,7 +24,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-cf-dark-red fixed w-4/5 z-50">
+    <header className="fixed top-0 left-0 w-full z-50 flex align-center">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/">
           <img
@@ -42,7 +42,7 @@ const Header = () => {
         <nav
           className={`${
             menuOpen ? "block" : "hidden"
-          } md:flex gap-6 text-white font-medium absolute md:static top-16 left-0 w-full md:w-auto bg-cf-dark-red md:bg-transparent px-4 py-4 md:py-0`}
+          } md:flex flex justify-center gap-6 text-white font-medium absolute md:static top-16 left-0 w-full md:w-auto md:bg-transparent px-4 py-4 md:py-0`}
         >
           <Link
             to="/"
