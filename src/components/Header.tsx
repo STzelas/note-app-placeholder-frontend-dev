@@ -54,26 +54,29 @@ const Header = () => {
                 " dark:hover:text-neutral-400"}
             />
           </Link>
-          <Link
-            to="/note-app"
-            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
-          >
-            <Notebook
-              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
-                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
-                " dark:hover:text-neutral-400"}
-            />
-          </Link>
-          <Link
-            to="/todo-app"
-            className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
-          >
-            <ListTodo
-              className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
-                "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
-                " dark:hover:text-neutral-400"}
-            />
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+              to="/note-app"
+              className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+              >
+                <Notebook
+                  className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                    "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                    " dark:hover:text-neutral-400"}/>
+              </Link>
+              <Link
+                to="/todo-app"
+                className={"rounded-full p-1.5 sm:p-2 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"}
+              >
+                <ListTodo
+                  className={"h-5 w-5 sm:h-6 sm:w-6 transition-colors duration-300 " +
+                    "text-neutral-800 hover:text-neutral-600 dark:text-neutral-200" +
+                    " dark:hover:text-neutral-400"}/>
+              </Link>
+            </>
+          ) : ""}
+
           <a
             href="https://github.com/STzelas/note-app-placeholder-frontend-dev"
             target="_blank"
