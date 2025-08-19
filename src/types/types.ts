@@ -13,7 +13,7 @@ export const todoSchema = z.object({
   id: z.number().optional(),
   description: z.string().min(1, "Description is required").max(255, "Description must not be more than 255 characters"),
   importance: z.string().min(1, "Importance is required"),
-  completed: z.boolean().default(false).optional(),
+  isComplete: z.boolean().default(false).optional(),
 })
 
 export type TodoType = z.infer<typeof todoSchema>;
@@ -78,6 +78,24 @@ export type TodoViewProps = {
   todos: TodoType[];
   loading: boolean;
   onTodoDelete: (id : number) => void;
-  onTodoCreate: (todo: TodoType) => void;
-  // onTodoEdit: (id : number) => void;
 };
+
+export type TodoChangeProps = {
+  onTodoChange: (todo: TodoType) => void;
+}
+
+export type TodoDeleteProps = {
+  handleDelete: (id : number) => void;
+  id: number | undefined;
+}
+
+export type TodoCheckedProps = {
+  onTodoCheck: (id: number | undefined) => void;
+}
+
+export type ImportanceFilter = "ALL" | "MAJOR" | "MODERATE" | "MINOR";
+
+export type FilterProps = {
+  filter: ImportanceFilter;
+  onFilterChange: (newFilter: ImportanceFilter) => void;
+}
