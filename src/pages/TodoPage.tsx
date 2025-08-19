@@ -1,13 +1,14 @@
-import TodoView from "@/components/TodoView.tsx";
+import {TodoView} from "@/components/TodoView.tsx";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.ts";
-import type {TodoType} from "@/types/types.ts";
-import {deleteTodo} from "@/api/todo.ts";
+import type {ImportanceFilter, TodoType} from "@/types/types.ts";
+import {deleteTodo, updateTodo} from "@/api/todo.ts";
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTodo, setSelectedTodo] = useState<TodoType | null>(null);
+  const [filter, setFilter] = useState<ImportanceFilter>("ALL");
 
   useEffect(() => {
     document.title = "Your Notes";
@@ -27,6 +28,26 @@ const TodoPage = () => {
 
   }, []);
 
+  const handleChecked = async (todoId: number | undefined) => {
+    const todo = todos.find(t => t.id === todoId);
+    if (!todo) return;
+    console.log("Handle checked log", todo)
+    try {
+      const updated = await updateTodo(todoId, {
+        description: todo.description,
+        importance: todo.importance,
+        isComplete: !todo.isComplete,
+      });
+      setTodos(prev => prev.map(t => t.id === todoId ? updated : t));
+      console.log("Updated todos", todos);
+      if (selectedTodo?.id === todoId) setSelectedTodo(updated);
+      console.log("Handle checked log", updated)
+
+    } catch (error) {
+      console.error("Failed to update todo:", error);
+    }
+  };
+
   const handleDelete = async (id: number) => {
     try {
       await deleteTodo(id);
@@ -37,13 +58,16 @@ const TodoPage = () => {
     }
   };
 
+  const filteredTodos =
+    filter === "ALL" ? todos : todos.filter(t => t.importance === filter);
+
   return (
     <>
       <TodoView
-        todos={todos}
+        todos={filteredTodos}
         loading={loading}
         onTodoDelete={handleDelete}
-        onTodoCreate={todo => {
+        onTodoChange={todo => {
           setTodos(prevState => {
             const exists = prevState.find(t => t.id === todo.id)
             if (exists) {
@@ -54,9 +78,9 @@ const TodoPage = () => {
             }
           })
         }}
-        // onTodoCreate={handleCreate}
-        // onTodoEdit={}
-        // onCreateNewTodo={}
+        onTodoCheck={handleChecked}
+        filter={filter}
+        onFilterChange={setFilter}
       />
     </>
   )
