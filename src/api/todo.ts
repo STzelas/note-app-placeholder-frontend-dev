@@ -2,7 +2,7 @@ import axiosInstance from "@/api/axiosInstance.ts";
 import type {AxiosError} from "axios";
 import type {TodoType} from "@/types/types.ts";
 
-export const saveTodo = async ({description, importance}: Omit<TodoType, "completed">) => {
+export const saveTodo = async ({description, importance}: Omit<TodoType, "isComplete">) => {
   try {
     const response = await axiosInstance.post<TodoType>(
       `/todos/save`,
@@ -25,10 +25,9 @@ export const saveTodo = async ({description, importance}: Omit<TodoType, "comple
   }
 }
 
-export const updateTodo = async (id: number, {description, importance}: Omit<TodoType, "completed">) => {
-  console.log(id, description, importance);
+export const updateTodo = async (id: number | undefined, {description, importance, isComplete}: TodoType) => {
   try {
-    const response = await axiosInstance.put(`/todos/${id}`, {description, importance },
+    const response = await axiosInstance.put(`/todos/${id}`, {description, importance, isCompleted: isComplete},
       {
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +35,7 @@ export const updateTodo = async (id: number, {description, importance}: Omit<Tod
       });
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("Error updating todo", error);
     const err = error as AxiosError<{ detail?: string }>;
     let detail = "Todo update error.";
     if (err.response?.data?.detail) {
