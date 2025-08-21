@@ -115,7 +115,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
             {...register("content")}
             id="content"
             disabled={!isEditing}
-            className="h-[calc(100vh-350px)] resize-none border-none focus-visible:ring-0 p-0 mt-2"
+            className="h-[calc(95vh-350px)] resize-none border-none focus-visible:ring-0 p-0 mt-2"
           />
 
         </CardContent>

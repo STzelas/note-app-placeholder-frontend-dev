@@ -21,7 +21,7 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
 
   if (loading) return <p>Loading notes...</p>;
   return (
-    <Card className="h-[90%]">
+    <Card className="h-[100%]">
       <CardHeader>
         <CardTitle>My Notes</CardTitle>
       </CardHeader>
@@ -45,7 +45,7 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
             Create a note
               <Plus/>
             </Button>
-            <ScrollArea className="h-[calc(90vh-250px)] mt-5 overflow-auto">
+            <ScrollArea className="h-[calc(90vh-350px)] mt-5 overflow-auto">
 
             <div>
               {notes.map(note => (
