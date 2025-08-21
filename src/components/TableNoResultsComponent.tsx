@@ -34,14 +34,14 @@ const TableNoResultsComponent = ({filter, onFilterChange, onTodoChange}: FilterP
               <TableHeader>
                 <TableRow>
                   <TableHead></TableHead>
-                  <TableHead className={"font-semibold w-1/2"}>Description</TableHead>
-                  <TableHead className={"font-semibold w-1/6"}>Importance</TableHead>
-                  <TableHead className={"font-semibold w-1/3"}>Actions</TableHead>
+                  <TableHead className={"font-semibold w-1/2 pl-4"}>Description</TableHead>
+                  <TableHead className={"font-semibold w-1/6 pl-3"}>Importance</TableHead>
+                  <TableHead className={"font-semibold w-1/3 pl-2.5"}>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell colSpan={4} className="text-center pt-6">
+                  <TableCell colSpan={4} className="text-center pt-10 pl-5">
                     No tasks found.
                   </TableCell>
                 </TableRow>
