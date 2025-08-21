@@ -10,25 +10,16 @@ import {noteSchema, type NoteType, type NoteViewProps} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {Save, Trash2, X} from "lucide-react";
+import {Save, X} from "lucide-react";
 import {saveNote, updateNote} from "@/api/notes";
 import {useEffect, useRef, useState} from "react";
-import {
-  AlertDialog,
-  AlertDialogAction, AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog.tsx";
+import {NoteDeleteComponent} from "@/components/NoteDeleteComponent.tsx";
 
 
 const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
 
   const [isEditing, setIsEditing] = useState(isNew);
   const titleRef = useRef<HTMLInputElement>(null);
-  const [open, setOpen] = useState(false)
 
   const {
     register,
@@ -146,34 +137,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
               >
               Edit Note
               </Button>
-              <AlertDialog open={open} onOpenChange={setOpen}>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    type="button"
-
-                  >
-                    <Trash2 className="h-4 w-4 mr-2"/>
-                    Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Note</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Are you sure you want to delete this note? This action cannot be
-                      undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => {
-                      if (note?.id) onNoteDelete(note.id)
-                    }}>
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <NoteDeleteComponent id={note?.id} onNoteDelete={onNoteDelete}/>
             </>
           )}
 
