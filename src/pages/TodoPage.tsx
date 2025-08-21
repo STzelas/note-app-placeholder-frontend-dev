@@ -11,7 +11,7 @@ const TodoPage = () => {
   const [filter, setFilter] = useState<ImportanceFilter>("ALL");
 
   useEffect(() => {
-    document.title = "Your Notes";
+    document.title = "Your Tasks";
     const fetchTodos = async () => {
       try {
         const res = await axiosInstance.get("http://localhost:8080/api/todos", {
@@ -31,7 +31,6 @@ const TodoPage = () => {
   const handleChecked = async (todoId: number | undefined) => {
     const todo = todos.find(t => t.id === todoId);
     if (!todo) return;
-    console.log("Handle checked log", todo)
     try {
       const updated = await updateTodo(todoId, {
         description: todo.description,
@@ -39,9 +38,7 @@ const TodoPage = () => {
         isComplete: !todo.isComplete,
       });
       setTodos(prev => prev.map(t => t.id === todoId ? updated : t));
-      console.log("Updated todos", todos);
       if (selectedTodo?.id === todoId) setSelectedTodo(updated);
-      console.log("Handle checked log", updated)
 
     } catch (error) {
       console.error("Failed to update todo:", error);

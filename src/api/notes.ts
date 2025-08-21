@@ -27,7 +27,6 @@ export const saveNote = async ({title, content}: Omit<NoteType, "createdAt" | "u
 }
 
 export const updateNote = async (id: number, {title, content}: NoteType) => {
-  console.log(id, title, content);
   try {
     const response = await axiosInstance.put(`/notes/${id}`, {title, content },
       {

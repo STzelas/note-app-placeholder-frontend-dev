@@ -32,7 +32,7 @@ export const TodoView = ({loading, todos, onTodoDelete, onTodoChange, onTodoChec
           </h2>
           <h3 className={"text-xl text-gray-600"}>
             {isEmptyBecauseOfFilter
-              ? "No tasks match the filter Please change the filter option."
+              ? "No tasks match the filter. Please change the filter option."
               : "You have no tasks yet."}
           </h3>
           <div className={"mt-10"}>

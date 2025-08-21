@@ -28,7 +28,7 @@ export default function LoginPage() {
         .then(() => navigate("/"))
     } catch (error) {
       setError("root", {
-        message: "Wrong username or password. Please try again.",
+        message: "Problem logging in. Check your credentials and try again.",
       })
       console.error("Login page error" , error)
     }
