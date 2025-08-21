@@ -7,7 +7,9 @@ export const TodoView = ({loading, todos, onTodoDelete, onTodoChange, onTodoChec
 
   const isEmptyBecauseOfFilter = todos.length === 0 && filter !== "ALL";
 
-  if (loading) return <p>Loading Tasks...</p>;
+  if (loading) return <p className="text-center text-gray-600 text-2xl animate-pulse mt-10">
+    Loading Tasks...
+  </p>;
 
   /**
    * If no todos exist then
