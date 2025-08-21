@@ -30,6 +30,7 @@ const TodoAddComponent = ({onTodoChange}:TodoChangeProps) => {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors, isSubmitting }
   } = useForm<TodoType>({
     resolver: zodResolver(todoSchema)
@@ -42,11 +43,15 @@ const TodoAddComponent = ({onTodoChange}:TodoChangeProps) => {
       setOpen(false);
     } catch (err) {
       console.log("Error saving task with error: ", err);
+      setError("root", {
+        message: "There was a problem creating task.",
+      })
     }
   }
 
   return (
     <>
+
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
@@ -57,6 +62,7 @@ const TodoAddComponent = ({onTodoChange}:TodoChangeProps) => {
           </Button>
         </DialogTrigger>
         <DialogContent>
+          {errors.root && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.root.message}</div>}
           <form onSubmit={handleSubmit(handleCreate)}>
             <DialogHeader>
               <DialogTitle className={"text-center"}>Add a new Task</DialogTitle>
