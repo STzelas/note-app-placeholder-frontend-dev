@@ -74,6 +74,11 @@ export type NoteViewProps = {
   isNew?: boolean;
 }
 
+export type NoteDeleteProps = {
+  id: number | undefined;
+  onNoteDelete: (id : number) => void;
+}
+
 export type TodoViewProps = {
   todos: TodoType[];
   loading: boolean;
