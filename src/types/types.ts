@@ -104,3 +104,10 @@ export type FilterProps = {
   filter: ImportanceFilter;
   onFilterChange: (newFilter: ImportanceFilter) => void;
 }
+
+export type TableWithResultProps = {
+  todos: TodoType[];
+  onTodoDelete: (id : number) => void;
+  onTodoChange: (todo: TodoType) => void;
+  onTodoCheck: (id: number | undefined) => void;
+}
