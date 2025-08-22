@@ -69,7 +69,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
     } catch (error) {
       console.log("Save failed with error: ", error);
       setError("root", {
-        message: "There was a problem creating note.",
+        message: "There was a problem saving note.",
       })
     }
   }
@@ -84,6 +84,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Card>
+        {errors.root && <div className={"p-2 mt-2 ml-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.root.message}</div>}
         <CardHeader>
           {errors.title && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.title.message}</div>}
           <Input
