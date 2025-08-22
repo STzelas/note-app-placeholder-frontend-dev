@@ -41,6 +41,8 @@ const TodoAddComponent = ({onTodoChange}:TodoChangeProps) => {
       const savedTodo = await saveTodo({description, importance})
       onTodoChange(savedTodo)
       setOpen(false);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (err) {
       console.log("Error saving task with error: ", err);
       setError("root", {
