@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const noteSchema = z.object({
   id: z.number().optional(),
   title: z.string().min(1, "Title is required").max(255, "Title must not be more than 255 characters"),
-  content: z.string().min(1, "Content is required").max(1000, "Content must not be more than 1000 characters"),
+  content: z.string().min(1, "Content is required").max(2000, "Content must not be more than 2000 characters"),
   deleted: z.boolean().optional(),
 })
 
@@ -20,13 +20,12 @@ export type TodoType = z.infer<typeof todoSchema>;
 
 
 export const registerSchema = z.object({
-  username: z.string().min(3, {error: "Username must be at least 3 characters"}).trim().regex(/^\S+$/, { message: "No spaces allowed" }),
-  firstname: z.string().min(3, {error: "First Name must be at least 3 characters"}).trim().regex(/^\S+$/, { message: "No spaces allowed" }),
-  lastname: z.string().min(3, {error: "Last Name must be at least 3 characters"}).trim().regex(/^\S+$/, { message: "No spaces allowed" }),
+  username: z.string().min(3, {error: "Username must be at least 3 characters"}).regex(/^\S+$/, { message: "No spaces allowed" }),
+  firstname: z.string().min(3, {error: "First Name must be at least 3 characters"}).regex(/^\S+$/, { message: "No spaces allowed" }),
+  lastname: z.string().min(3, {error: "Last Name must be at least 3 characters"}).regex(/^\S+$/, { message: "No spaces allowed" }),
   password: z.string()
         .min(6, {error: "Password must be at least 6 characters"})
-        .regex(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/, {error: "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces."})
-        .trim(),
+        .regex(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/, {error: "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces."}),
   // Password has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter and at least 1 number and no spaces.
 })
 
