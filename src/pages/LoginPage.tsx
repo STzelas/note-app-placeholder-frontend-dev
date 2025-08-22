@@ -69,7 +69,6 @@ export default function LoginPage() {
             placeholder={"Password"}
           />
           {errors.password && <div className={"p-2 mt-2 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"}>{errors.password.message}</div>}
-          <a href="#" className={"text-xs text-gray-400 ms-1 hover:text-black"}>Forgot your password?</a>
         </div>
         <div className={"flex flex-col items-center justify-center space-y-2"}>
           <Button
