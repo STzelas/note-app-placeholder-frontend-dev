@@ -74,6 +74,9 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
     }
   }
 
+  /**
+   * Handles cancel button when editing the note.
+   */
   const handleCancel = () => {
     reset(note || { title: "", content: "" });
     setIsEditing(false);
