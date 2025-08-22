@@ -6,6 +6,7 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type LoginFields, loginSchema} from "@/types/types.ts";
 import {useAuth} from "@/hooks/useAuth.ts";
+import {toast} from "sonner";
 
 export default function LoginPage() {
   const { loginUser } = useAuth()
@@ -24,8 +25,8 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFields) => {
     try {
       await loginUser(data)
-        .then(() => console.log("Successfully logged in"))
         .then(() => navigate("/"))
+        .then(() => toast.success("Successfully logged in."))
     } catch (error) {
       setError("root", {
         message: "Problem logging in. Check your credentials and try again.",

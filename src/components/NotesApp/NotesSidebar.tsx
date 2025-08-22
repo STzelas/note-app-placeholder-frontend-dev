@@ -10,7 +10,7 @@ export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete
 
   if (loading) return <p className="text-center text-gray-600 text-2xl animate-pulse mt-10">
     Loading Notes...
-  </p>;;
+  </p>
   return (
     <Card className="h-[100%]">
       <CardHeader>

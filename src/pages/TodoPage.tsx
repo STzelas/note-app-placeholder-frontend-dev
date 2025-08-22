@@ -15,7 +15,7 @@ const TodoPage = () => {
     const fetchTodos = async () => {
       try {
         const res = await axiosInstance.get("http://localhost:8080/api/todos", {
-          withCredentials: true // ⬅ sends cookies with the request
+          withCredentials: true
         });
         setTodos(res.data);
       } catch (error) {

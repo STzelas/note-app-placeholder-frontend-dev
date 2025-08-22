@@ -77,7 +77,7 @@ const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {
   const handleCancel = () => {
     reset(note || { title: "", content: "" });
     setIsEditing(false);
-  };
+  }
 
   return (
     <form

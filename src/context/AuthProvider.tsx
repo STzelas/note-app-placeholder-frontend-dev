@@ -38,7 +38,8 @@ export const AuthProvider = ({children} : AuthProviderProps) => {
 
       const decoded: JwtPayload = jwtDecode(token);
       // Token expires in 3 hours, cookie will too
-      const expiryDate = new Date(Date.now() + 3 * 60 * 60 * 1000)
+      const expirationTime = 3 * 60 * 60 * 1000 // 3h
+      const expiryDate = new Date(Date.now() + expirationTime)
 
       setCookie("access_token", token, {
         expires: expiryDate,
