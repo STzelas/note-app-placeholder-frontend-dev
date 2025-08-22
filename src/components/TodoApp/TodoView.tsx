@@ -1,7 +1,7 @@
 import type {FilterProps, TodoChangeProps, TodoCheckedProps, TodoViewProps} from "@/types/types.ts";
-import TodoAddComponent from "@/components/TodoAddComponent.tsx";
-import {TableNoResultsComponent} from "@/components/TableNoResultsComponent.tsx";
-import TableWithResultsComponent from "@/components/TableWithResultsComponent.tsx";
+import TodoAddComponent from "@/components/TodoApp/TodoAddComponent.tsx";
+import {TableNoResultsComponent} from "@/components/TodoApp/TableNoResultsComponent.tsx";
+import TableWithResultsComponent from "@/components/TodoApp/TableWithResultsComponent.tsx";
 
 export const TodoView = ({loading, todos, onTodoDelete, onTodoChange, onTodoCheck, filter, onFilterChange}: TodoViewProps & TodoChangeProps & TodoCheckedProps & FilterProps) => {
 

@@ -1,7 +1,7 @@
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import type {FilterProps, ImportanceFilter, TodoChangeProps} from "@/types/types.ts";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
-import TodoAddComponent from "@/components/TodoAddComponent.tsx";
+import TodoAddComponent from "@/components/TodoApp/TodoAddComponent.tsx";
 
 const TableNoResultsComponent = ({filter, onFilterChange, onTodoChange}: FilterProps & TodoChangeProps) => {
   return (

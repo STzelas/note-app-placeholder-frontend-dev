@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router";
-import Noterr from "@/components/Noterr.tsx";
+import Noterr from "@/components/NotesApp/Noterr.tsx";
 import HomePage from "@/pages/HomePage.tsx";
 import LoginPage from "@/pages/LoginPage.tsx";
 import RegisterPage from "@/pages/RegisterPage.tsx";

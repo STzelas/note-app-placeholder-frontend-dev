@@ -3,17 +3,17 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "./ui/card";
-import { Button } from "@/components/ui/button";
+} from "../ui/card.tsx";
+import { Button } from "@/components/ui/button.tsx";
 import {useForm} from "react-hook-form";
 import {noteSchema, type NoteType, type NoteViewProps} from "@/types/types.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Save, X} from "lucide-react";
-import {saveNote, updateNote} from "@/api/notes";
+import {saveNote, updateNote} from "@/api/notes.ts";
 import {useEffect, useRef, useState} from "react";
-import {NoteDeleteComponent} from "@/components/NoteDeleteComponent.tsx";
+import {NoteDeleteComponent} from "@/components/NotesApp/NoteDeleteComponent.tsx";
 
 
 const NoteView = ({onNoteSaved, onNoteDelete, note, isNew }:NoteViewProps) => {

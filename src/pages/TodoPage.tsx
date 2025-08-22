@@ -1,4 +1,4 @@
-import {TodoView} from "@/components/TodoView.tsx";
+import {TodoView} from "@/components/TodoApp/TodoView.tsx";
 import {useEffect, useState} from "react";
 import axiosInstance from "@/api/axiosInstance.ts";
 import type {ImportanceFilter, TodoType} from "@/types/types.ts";

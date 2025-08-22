@@ -1,5 +1,5 @@
-import NotesSidebar from "@/components/NotesSidebar.tsx";
-import NoteView from "@/components/NoteView.tsx";
+import NotesSidebar from "@/components/NotesApp/NotesSidebar.tsx";
+import NoteView from "@/components/NotesApp/NoteView.tsx";
 import {useEffect, useRef, useState} from "react";
 import type {NoteType} from "@/types/types.ts";
 import axiosInstance from "@/api/axiosInstance.ts";

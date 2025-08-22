@@ -1,11 +1,11 @@
-import TodoAddComponent from "@/components/TodoAddComponent.tsx";
+import TodoAddComponent from "@/components/TodoApp/TodoAddComponent.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import type {FilterProps, ImportanceFilter, TableWithResultProps} from "@/types/types.ts";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
-import TodoEditComponent from "@/components/TodoEditComponent.tsx";
-import TodoDeleteComponent from "@/components/TodoDeleteComponent.tsx";
+import TodoEditComponent from "@/components/TodoApp/TodoEditComponent.tsx";
+import TodoDeleteComponent from "@/components/TodoApp/TodoDeleteComponent.tsx";
 
 const TableWithResultsComponent = ({todos, onTodoDelete, onTodoChange, onTodoCheck, filter, onFilterChange}: TableWithResultProps & FilterProps) => {
   return (

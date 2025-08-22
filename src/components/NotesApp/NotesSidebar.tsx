@@ -1,9 +1,9 @@
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import {Plus} from "lucide-react";
 import type {NoteSideBarProps} from "@/types/types.ts";
-import {NoteSidebarDeleteComponent} from "@/components/NoteSidebarDeleteComponent.tsx";
+import {NoteSidebarDeleteComponent} from "@/components/NotesApp/NoteSidebarDeleteComponent.tsx";
 
 
 export default function NotesSidebar({notes, loading, onNoteSelect, onNoteDelete, onCreateNewNote}: NoteSideBarProps) {
